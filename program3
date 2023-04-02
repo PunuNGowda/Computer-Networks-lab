@@ -1,0 +1,45 @@
+set ns [new Simulator]
+set namfile [open prgm3.nam w]
+$ns namtrace-all $namfile
+set tracefile [open prgm3.tr w]
+$ns trace-all $tracefile
+set n0 [$ns node]
+set n1 [$ns node]
+set n2 [$ns node]
+set n3 [$ns node]
+set n4 [$ns node]
+set n5 [$ns node]
+set n6 [$ns node]
+set lan [$ns newLan "$n0 $n1 $n2 $n3 $n4 $n5 $n6" 100Mb 0.5ms LL Queue/DropTail Mac/802_3 Channel Phy/WiredPhy]
+set udp [new Agent/UDP]
+$ns attach-agent $n0 $udp
+set null [new Agent/Null]
+$ns attach-agent $n6 $null
+$ns connect $udp $null
+set cbr [new Application/Traffic/CBR];
+$cbr set packetSize_ 500
+$cbr set interval_ 0.005
+$cbr attach-agent $udp
+$ns at 0.0 "$cbr start"
+$ns at 9.0 "$cbr stop"
+proc finish {} {
+global ns namfile tracefile
+$ns flush-trace
+close $namfile
+close $tracefile
+exec nam prgm3.nam &
+exit 0
+}
+$ns at 5.0 "finish"
+$ns run
+
+AwkScript for Counting packet drop:
+BEGIN{}
+{
+if($1 == "d" && $6 > 100){
+count++;
+}
+}
+END{
+print "No.of Packets dropped are:", count;
+}
