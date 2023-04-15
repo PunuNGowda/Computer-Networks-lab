@@ -16,7 +16,7 @@ $ns attach-agent $n0 $udp
 set null [new Agent/Null]
 $ns attach-agent $n6 $null
 $ns connect $udp $null
-set cbr [new Application/Traffic/CBR];
+set cbr [new Application/Traffic/CBR]
 $cbr set packetSize_ 500
 $cbr set interval_ 0.005
 $cbr attach-agent $udp
@@ -32,14 +32,3 @@ exit 0
 }
 $ns at 5.0 "finish"
 $ns run
-
-AwkScript for Counting packet drop:
-BEGIN{}
-{
-if($1 == "d" && $6 > 100){
-count++;
-}
-}
-END{
-print "No.of Packets dropped are:", count;
-}
