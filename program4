@@ -1,12 +1,11 @@
 #include <stdio.h>
-
+#include <stdlib.h>
 int main()
 {
    int i, x;
    char str[100];
-
    printf("\nPlease enter a string:\t");
-   gets(str);
+   scanf("%s",str);
    while (1) {
    printf("\nPlease choose following options:\n");
    printf("1 = Encrypt the string.\n");
