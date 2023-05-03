@@ -1,29 +1,28 @@
-#include<iostream>
+#include<stdio.h>
+#include<stdlib.h>
+#include<ctime>
 
-//#include<ctime>
-
-#define ll long long int
-using namespace std;
+#define ll long int
 
 void transmission(ll & i, ll & N, ll & tf, ll & tt) {
   while (i <= tf) {
     int z = 0;
     for (int k = i; k < i + N && k <= tf; k++) {
-      cout << "Sending Frame " << k << "..." << endl;
+      printf("Sending Frame %d ...\n",k);
       tt++;
     }
     for (int k = i; k < i + N && k <= tf; k++) {
       int f = rand() % 2;
       if (!f) {
-        cout << "Acknowledgment for Frame " << k << "..." << endl;
+	printf("Acknowledgment for Frame   %d ...  \n",k);
         z++;
       } else {
-        cout << "Timeout!! Frame Number : " << k << " Not Received" << endl;
-        cout << "Retransmitting Window..." << endl;
+	printf("Timeout!! Frame Number : %d Not Received \n",k);
+	printf("Retransmitting Window... \n");        
         break;
       }
     }
-    cout << "\n";
+    printf("\n");
     i = i + z;
   }
 }
@@ -31,13 +30,12 @@ void transmission(ll & i, ll & N, ll & tf, ll & tt) {
 int main() {
   ll tf, N, tt = 0;
   srand(time(NULL));
-  cout << "Enter the Total number of frames : ";
-  cin >> tf;
-  cout << "Enter the Window Size : ";
-  cin >> N;
+  printf("Enter the Total number of frames : ");
+  scanf("%li",&tf);	  
+  printf("Enter the Window Size : ");
+  scanf("%li",&N);
   ll i = 1;
   transmission(i, N, tf, tt);
-  cout << "Total number of frames which were sent and resent are : " << tt <<
-    endl;
+  printf("Total number of frames which were sent and resent are : %li  \n",tt);
   return 0;
 }
