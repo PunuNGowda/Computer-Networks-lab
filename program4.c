@@ -1,40 +1,47 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include<stdio.h>
+#include<conio.h>
 int main()
 {
-   int i, x;
-   char str[100];
-   printf("\nPlease enter a string:\t");
-   scanf("%s",str);
-   while (1) {
-   printf("\nPlease choose following options:\n");
-   printf("1 = Encrypt the string.\n");
-   printf("2 = Decrypt the string.\n");
-   printf("3 = Exit");
-   scanf("%d", &x);
-
-   //using switch case statements
-   switch(x)
-   {
-   case 1:
-      for(i = 0; (i < 100 && str[i] != '\0'); i++)
-        str[i] = str[i] + 3; //the key for encryption is 3 that is added to ASCII value
-
-      printf("\nEncrypted string: %s\n", str);
-      break;
-
-   case 2:
-      for(i = 0; (i < 100 && str[i] != '\0'); i++)
-        str[i] = str[i] - 3; //the key for encryption is 3 that is subtracted to ASCII value
-
-      printf("\nDecrypted string: %s\n", str);
-      break;
-   case 3:
-         exit(0);
-
-   default:
-      printf("\nError\n");
-    }
-   }
-   return 0;
+char fname[20], ch;
+FILE *fps, *fpt;
+clrscr();
+printf("Enter Filename: ");
+scanf("%s",fname);
+fps = fopen(fname, "r");
+if(fps == NULL)
+return 0;
+fpt = fopen("temp.txt", "w");
+if(fpt == NULL)
+return 0;
+printf("\n\n File %s Encrypted Successfully! data stored in temp.txt \n", fname);
+ch = fgetc(fps);
+while(ch != EOF)
+{
+ch = ch+100;
+fputc(ch, fpt);
+printf("%c",ch);
+ch = fgetc(fps);
+}
+fclose(fps);
+fclose(fpt);
+printf("\n\n Enter the file name to store decrypted data:");
+scanf("%s",fname);
+fps = fopen(fname, "w");
+if(fps == NULL)
+return 0;
+fpt = fopen("temp.txt", "r");
+if(fpt == NULL)
+return 0;
+printf("\n\n File temp.txt decrypted successfully! and stored in %s file \n", fname);
+ch = fgetc(fpt);
+while(ch != EOF)
+{
+fputc(ch-100, fps);
+printf("%c",ch-100);
+ch = fgetc(fpt);
+}
+fclose(fps);
+fclose(fpt);
+getch();
+return 0;
 }
