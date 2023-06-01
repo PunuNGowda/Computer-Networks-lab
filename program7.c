@@ -1,4 +1,3 @@
-
 #include<stdio.h>
 #include<conio.h>
 #define INFINITY 9999
