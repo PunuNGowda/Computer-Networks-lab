@@ -26,7 +26,6 @@ void transmission(ll & i, ll & N, ll & tf, ll & tt) {
     i = i + z;
   }
 }
-
 int main() {
   ll tf, N, tt = 0;
   srand(time(NULL));
