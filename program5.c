@@ -22,7 +22,6 @@ void crc()
         cs[c]=t[e++];
     }while(e<=a+N-1);
 } 
-
 int main()
 { 
     int flag=0;
