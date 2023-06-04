@@ -1,11 +1,10 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
 #define ll long int
 
-void transmission(ll i, ll N, ll tf, ll tt) {
+void transmission(ll&i, ll&N, ll&tf, ll&tt) {
   while (i <= tf) {
     int z = 0;
     for (ll k = i; k < i + N && k <= tf; k++) {
